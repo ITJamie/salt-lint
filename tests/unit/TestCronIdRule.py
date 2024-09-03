@@ -13,12 +13,23 @@ run_postinstall:
   cron.present:
     - name: echo hello
     - identifier: yes
+
+run_postinstall2:
+  cron.present:
+  - name: echo hello
+  - identifier: yes2
+
 '''
 
 BAD_CMD_STATE = '''
 run_postinstall:
   cron.present:
     - name: echo hello
+
+run_postinstall2:
+  cron.present:
+  - name: echo hello
+
 '''
 
 class TestCmdWaitRecommendRule(unittest.TestCase):
@@ -39,4 +50,4 @@ class TestCmdWaitRecommendRule(unittest.TestCase):
         results = runner.run_state(BAD_CMD_STATE)
         # import pprint
         # pprint.pprint(results)
-        self.assertEqual(1, len(results))
+        self.assertEqual(2, len(results))

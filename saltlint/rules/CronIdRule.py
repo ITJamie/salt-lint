@@ -17,7 +17,7 @@ class CronIdRule(Rule):
     tags = ['reccomendation']
     version_added = 'v0.9.4'
 
-    regex = re.compile(r"^\w+:\n^\s{2}cron\.present:\n(?!^\s{4}- identifier:\n)(?:^\s{4}- .+\n)+", re.MULTILINE)
+    regex = re.compile(r"^\w+:\n^\s{2}cron\.present:\n(?!^\s{2,4}- identifier:\n)(?:^\s{2,4}- .+\n)+", re.MULTILINE)
 
     def matchtext(self, file, text):
         results = []
