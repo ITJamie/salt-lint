@@ -39,7 +39,7 @@ class CronIdRule(Rule):
 
             # check if block contains identifier
             has_identifier = False
-            if "  - identifier:" in section or "    - identifier:" in section:
+            if "\n  - identifier:" in section or "\n    - identifier:" in section:
                 has_identifier = True
             if not has_identifier:
                 results.append((line_no, lines[-1], self.shortdesc))

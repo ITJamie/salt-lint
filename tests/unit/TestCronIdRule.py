@@ -43,6 +43,11 @@ run_do_something:
   cmd.run:
   - name: echo hello
 
+run_do_something:
+  cron.present:
+  - name: echo hello
+  # - identifier: bleh
+
 '''
 
 class TestCmdWaitRecommendRule(unittest.TestCase):
@@ -59,4 +64,4 @@ class TestCmdWaitRecommendRule(unittest.TestCase):
     def test_statement_negative(self):
         runner = RunFromText(self.collection)
         results = runner.run_state(BAD_CMD_STATE)
-        self.assertEqual(3, len(results))
+        self.assertEqual(4, len(results))
