@@ -19,6 +19,13 @@ run_postinstall2:
   - name: echo hello
   - identifier: yes2
 
+run_do_something:
+  cron.present:
+  - name: echo hello
+  - identifier: yes2
+  cmd.run:
+  - name: echo hello
+
 '''
 
 BAD_CMD_STATE = '''
@@ -28,6 +35,12 @@ run_postinstall:
 
 run_postinstall2:
   cron.present:
+  - name: echo hello
+
+run_do_something:
+  cron.present:
+  - name: echo hello
+  cmd.run:
   - name: echo hello
 
 '''
@@ -41,13 +54,9 @@ class TestCmdWaitRecommendRule(unittest.TestCase):
     def test_statement_positive(self):
         runner = RunFromText(self.collection)
         results = runner.run_state(GOOD_CMD_STATE)
-        import pprint
-        pprint.pprint(results)
         self.assertEqual(0, len(results))
 
     def test_statement_negative(self):
         runner = RunFromText(self.collection)
         results = runner.run_state(BAD_CMD_STATE)
-        # import pprint
-        # pprint.pprint(results)
-        self.assertEqual(2, len(results))
+        self.assertEqual(3, len(results))
